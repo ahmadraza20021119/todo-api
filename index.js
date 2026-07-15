@@ -1,6 +1,11 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const openapiSpec = require('./openapi.json');
+
 const app = express();
 app.use(express.json());
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapiSpec));
+
 let tasks = [
   { id: 1, title: "Buy milk", done: false },
   { id: 2, title: "Walk dog", done: true },
@@ -26,7 +31,7 @@ app.get('/tasks/:id', (req, res) => {
 });
 
 app.post('/tasks', (req, res) => {
-  const { title } = req.body;
+  const { title } = req.body || {};
   if (!title || title.trim() === "") {
     return res.status(400).json({ error: "title is required" });
   }
@@ -42,7 +47,7 @@ app.post('/tasks', (req, res) => {
 app.put('/tasks/:id', (req, res) => {
   const task = tasks.find(t => t.id === Number(req.params.id));
   if (!task) return res.status(404).json({ error: `Task ${req.params.id} not found` });
-  const { title, done } = req.body;
+  const { title, done } = req.body || {};
   if (title === undefined && done === undefined) {
     return res.status(400).json({ error: "title or done required" });
   }
