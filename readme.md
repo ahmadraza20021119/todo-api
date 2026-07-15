@@ -1,0 +1,43 @@
+# Task API
+
+A small CRUD API for managing a to-do list, built with Node.js and Express.
+
+## Run it
+
+    npm install
+    node index.js
+
+Server runs on http://localhost:3000
+
+## Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| GET | / | API info |
+| GET | /health | Health check |
+| GET | /tasks | List all tasks |
+| GET | /tasks/:id | Get one task |
+| POST | /tasks | Create a task |
+| PUT | /tasks/:id | Update a task |
+| DELETE | /tasks/:id | Delete a task |
+
+## Example request
+
+    curl.exe -i http://localhost:3000/tasks/1
+
+Response:
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    {"id":1,"title":"Buy milk","done":false}
+
+## Swagger UI
+
+Available at http://localhost:3000/docs — full CRUD cycle tested via "Try it out".
+
+![Swagger UI](swagger-screenshot.png)
+
+## Notes
+
+Data is stored in memory only — restarting the server resets all tasks back to the original 3 examples.
